@@ -45,18 +45,20 @@ function displayTokens(tokens) {
 
 async function initResultsPage() {
   const searchTerm = localStorage.getItem("searchTerm");
-
   if (!searchTerm) {
-    localStorage.removeItem("searchTerm");
-    window.location.replace("index.html");
+    displayNoSearchTermMessage();
     return;
   }
-
-  localStorage.removeItem("searchTerm"); // Add this line to prevent the reload loop
 
   const tokens = await fetchLatestTokens();
   const filteredTokens = filterTokensByNameAndAge(tokens, searchTerm, 7);
   displayTokens(filteredTokens);
 }
+
+function displayNoSearchTermMessage() {
+  const resultsContainer = document.querySelector(".section_results");
+  resultsContainer.innerHTML = "No search term provided. Please go back and enter a search term.";
+}
+
 
 initResultsPage();
