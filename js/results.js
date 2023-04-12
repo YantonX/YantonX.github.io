@@ -45,7 +45,7 @@ function displayTokens(tokens) {
 }
 
 async function initResultsPage() {
-  const searchTerm = sessionStorage.getItem("searchTerm");
+  const searchTerm = localStorage.getItem("searchTerm");
   if (!searchTerm) {
     window.location.href = "index.html";
     return;

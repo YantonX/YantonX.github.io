@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchTerm.length === 0) {
       displayErrorMessage('Make sure to type your keyword!');
     } else {
-      sessionStorage.setItem('searchTerm', searchTerm);
+      localStorage.setItem("searchTerm", searchInput.value);
       window.location.href = 'results.html';
     }
   }
