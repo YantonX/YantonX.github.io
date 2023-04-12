@@ -1,5 +1,3 @@
-// bscscan.js
-
 const apiKey = "7G63N6FWRKWEIDCGK4GR1F7HK3SXXR3XW9";
 const apiUrl = "https://api.bscscan.com/api";
 
@@ -31,7 +29,8 @@ function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
   });
 
   return filteredTokens;
-}
+} // <- Add closing brace and parenthesis here
+
 
 function displayTokens(tokens) {
   const resultsContainer = document.querySelector(".section_results");
