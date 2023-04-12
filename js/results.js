@@ -14,6 +14,13 @@ async function fetchLatestTokens() {
     }
 
     const data = await response.json();
+	
+	// Log the entire response object
+    console.log("API response object:", response);
+
+    // Log the response data
+    console.log("API response data:", data);
+	
     return data.result;
   } catch (error) {
     console.error("Error fetching tokens:", error);
