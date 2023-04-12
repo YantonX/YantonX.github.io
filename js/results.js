@@ -4,6 +4,7 @@ const apiUrl = "https://api.bscscan.com/api";
 async function fetchLatestTokens() {
   const corsProxy = "https://api.allorigins.win/raw?url=";
   try {
+    await sleep(5000); // Wait for 5 seconds before making a request
     const response = await fetch(
       `${corsProxy}${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
     );
@@ -13,18 +14,16 @@ async function fetchLatestTokens() {
     }
 
     const data = await response.json();
-    
-    // Log the entire response object
-    console.log("API response object:", response);
-
-    // Log the response data
-    console.log("API response data:", data);
-
     return data.result;
   } catch (error) {
     console.error("Error fetching tokens:", error);
     return [];
   }
+}
+
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 
