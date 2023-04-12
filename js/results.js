@@ -2,7 +2,7 @@ const apiKey = "7G63N6FWRKWEIDCGK4GR1F7HK3SXXR3XW9";
 const apiUrl = "https://api.bscscan.com/api";
 
 async function fetchLatestTokens() {
-  const corsProxy = "https://cors.bridged.cc"; // Use a CORS proxy to avoid CORS policy issues
+  const corsProxy = "https://cors.bridged.cc";
   const response = await fetch(
     `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
   );
@@ -45,12 +45,14 @@ function displayTokens(tokens) {
 
 async function initResultsPage() {
   const searchTerm = localStorage.getItem("searchTerm");
-  
+
   if (!searchTerm) {
     localStorage.removeItem("searchTerm");
     window.location.href = "index.html";
     return;
   }
+
+  localStorage.removeItem("searchTerm"); // Add this line to prevent the reload loop
 
   const tokens = await fetchLatestTokens();
   const filteredTokens = filterTokensByNameAndAge(tokens, searchTerm, 7);
