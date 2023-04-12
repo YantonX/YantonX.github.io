@@ -13,12 +13,17 @@ async function fetchLatestTokens() {
     }
 
     const data = await response.json();
+    
+    // Log the response data
+    console.log("API response:", data);
+
     return data.result;
   } catch (error) {
     console.error("Error fetching tokens:", error);
     return [];
   }
 }
+
 
 function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
   if (!Array.isArray(tokens)) {
