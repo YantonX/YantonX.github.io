@@ -14,7 +14,6 @@ async function fetchLatestTokens() {
 function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
   const now = new Date();
 
-  // Remove duplicate tokens
   const uniqueTokens = Array.from(new Set(tokens.map((t) => t.contractAddress))).map(
     (address) => tokens.find((t) => t.contractAddress === address)
   );
@@ -46,7 +45,9 @@ function displayTokens(tokens) {
 
 async function initResultsPage() {
   const searchTerm = localStorage.getItem("searchTerm");
+  
   if (!searchTerm) {
+    localStorage.removeItem("searchTerm");
     window.location.href = "index.html";
     return;
   }
