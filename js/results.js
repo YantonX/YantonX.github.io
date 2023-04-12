@@ -52,10 +52,15 @@ function initResultsPage() {
     return;
   }
 
-  fetchLatestTokens().then((tokens) => {
-    const filteredTokens = filterTokensByNameAndAge(tokens, searchTerm, 7);
-    displayTokens(filteredTokens);
-  });
+async function fetchLatestTokens() {
+  const corsProxy = "https://cors.bridged.cc"; // Use a CORS proxy to avoid CORS policy issues
+  const response = await fetch(
+    `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
+  );
+
+  const data = await response.json();
+  return data.result;
 }
+
 
 initResultsPage();
