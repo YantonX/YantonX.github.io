@@ -1,16 +1,6 @@
 const apiKey = "7G63N6FWRKWEIDCGK4GR1F7HK3SXXR3XW9";
 const apiUrl = "https://api.bscscan.com/api";
 
-async function fetchLatestTokens() {
-  const corsProxy = "https://cors.bridged.cc"; // Use a CORS proxy to avoid CORS policy issues
-  const response = await fetch(
-    `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
-  );
-
-  const data = await response.json();
-  return data.result;
-}
-
 function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
   const now = new Date();
 
@@ -30,7 +20,8 @@ function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
   });
 
   return filteredTokens;
-}
+} // <- Add closing brace and parenthesis here
+
 
 function displayTokens(tokens) {
   const resultsContainer = document.querySelector(".section_results");
@@ -51,10 +42,15 @@ function initResultsPage() {
     return;
   }
 
-  fetchLatestTokens().then((tokens) => {
-    const filteredTokens = filterTokensByNameAndAge(tokens, searchTerm, 7);
-    displayTokens(filteredTokens);
-  });
+async function fetchLatestTokens() {
+  const corsProxy = "https://cors.bridged.cc"; // Use a CORS proxy to avoid CORS policy issues
+  const response = await fetch(
+    `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
+  );
+
+  const data = await response.json();
+  return data.result;
 }
+
 
 initResultsPage();
