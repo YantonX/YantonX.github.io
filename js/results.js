@@ -2,10 +2,10 @@ const apiKey = "7G63N6FWRKWEIDCGK4GR1F7HK3SXXR3XW9";
 const apiUrl = "https://api.bscscan.com/api";
 
 async function fetchLatestTokens() {
-  const corsProxy = "https://thingproxy.freeboard.io/fetch";
+  const corsProxy = "https://api.allorigins.win/raw?url=";
   try {
     const response = await fetch(
-      `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
+      `${corsProxy}${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
     );
 
     if (!response.ok) {
@@ -19,7 +19,6 @@ async function fetchLatestTokens() {
     return [];
   }
 }
-
 
 function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
   const now = new Date();
