@@ -154,6 +154,50 @@
   margin-bottom: 27px;
 }
 
+.search_text {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+
+  /* Add these styles to remove borders and outline */
+  border: none;
+  outline: none;
+
+  /* Add these styles to adjust the appearance of the input */
+  padding: 0;
+  width: 100%;
+  background-color: transparent;
+}
+
+/* Style the placeholder text */
+.search_text::placeholder {
+  color: #333;
+  opacity: 1; /* Add this to ensure the placeholder text is visible */
+}
+
+/* Hide the placeholder text when the input is focused */
+.search_text:focus::placeholder {
+  color: transparent;
+}
+
+.search_text.error::placeholder {
+  color: red;
+}
+
+
+
+.error_message {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: red;
+  margin-top: 10px;
+  display: none;
+}
+
 .header_top {
   position: static;
   left: 0%;
