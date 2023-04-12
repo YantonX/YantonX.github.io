@@ -2,7 +2,7 @@ const apiKey = "7G63N6FWRKWEIDCGK4GR1F7HK3SXXR3XW9";
 const apiUrl = "https://api.bscscan.com/api";
 
 async function fetchLatestTokens() {
-  const corsProxy = "https://cors.bridged.cc";
+  const corsProxy = "https://thingproxy.freeboard.io/fetch"; // Use a CORS proxy to avoid CORS policy issues
   const response = await fetch(
     `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
   );
