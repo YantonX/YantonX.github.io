@@ -2,14 +2,24 @@ const apiKey = "7G63N6FWRKWEIDCGK4GR1F7HK3SXXR3XW9";
 const apiUrl = "https://api.bscscan.com/api";
 
 async function fetchLatestTokens() {
-  const corsProxy = "https://thingproxy.freeboard.io/fetch"; // Use a CORS proxy to avoid CORS policy issues
-  const response = await fetch(
-    `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
-  );
+  const corsProxy = "https://thingproxy.freeboard.io/fetch";
+  try {
+    const response = await fetch(
+      `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
+    );
 
-  const data = await response.json();
-  return data.result;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.result;
+  } catch (error) {
+    console.error("Error fetching tokens:", error);
+    return [];
+  }
 }
+
 
 function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
   const now = new Date();
