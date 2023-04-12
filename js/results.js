@@ -44,16 +44,16 @@ function displayTokens(tokens) {
   });
 }
 
-function initResultsPage() {
+async function initResultsPage() {
   const searchTerm = sessionStorage.getItem("searchTerm");
   if (!searchTerm) {
     window.location.href = "index.html";
     return;
   }
 
-  fetchLatestTokens().then((tokens) => {
-    const filteredTokens = filterTokensByNameAndAge(tokens, searchTerm, 7);
-    displayTokens(filteredTokens);
-  });
+  const tokens = await fetchLatestTokens();
+  const filteredTokens = filterTokensByNameAndAge(tokens, searchTerm, 7);
+  displayTokens(filteredTokens);
+}
 
 initResultsPage();
