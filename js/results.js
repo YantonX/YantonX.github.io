@@ -48,7 +48,7 @@ async function initResultsPage() {
 
   if (!searchTerm) {
     localStorage.removeItem("searchTerm");
-    window.location.href = "index.html";
+    window.location.replace("index.html");
     return;
   }
 
