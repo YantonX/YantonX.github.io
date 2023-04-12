@@ -50,6 +50,10 @@ function initResultsPage() {
     window.location.href = "index.html";
     return;
   }
-}
+
+  fetchLatestTokens().then((tokens) => {
+    const filteredTokens = filterTokensByNameAndAge(tokens, searchTerm, 7);
+    displayTokens(filteredTokens);
+  });
 
 initResultsPage();
