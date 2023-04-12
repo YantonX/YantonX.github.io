@@ -21,8 +21,14 @@ async function fetchLatestTokens() {
 }
 
 function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
+  if (!Array.isArray(tokens)) {
+    console.error("Unexpected response format: tokens should be an array");
+    return [];
+  }
+
   const now = new Date();
 
+  // Remove duplicate tokens
   const uniqueTokens = Array.from(new Set(tokens.map((t) => t.contractAddress))).map(
     (address) => tokens.find((t) => t.contractAddress === address)
   );
@@ -39,6 +45,7 @@ function filterTokensByNameAndAge(tokens, keyword, maxAgeInDays) {
 
   return filteredTokens;
 }
+
 
 function displayTokens(tokens) {
   const resultsContainer = document.querySelector(".section_results");
