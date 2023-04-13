@@ -6,8 +6,9 @@ async function fetchLatestTokens() {
   try {
     await sleep(5000); // Wait for 5 seconds before making a request
     const response = await fetch(
-      `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
-    );
+  `${corsProxy}/${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
+);
+
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
