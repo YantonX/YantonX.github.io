@@ -1,61 +1,54 @@
-async function fetchLatestTokens(searchTerm) {
-  // Replace this line with the Poocoin scraper function
-  const tokens = await fetchTokens(searchTerm);
-  return tokens;
+const searchTerm = localStorage.getItem("searchTerm");
+const resultsContainer = document.querySelector(".section_results");
+
+async function fetchTokens(searchTerm) {
+  try {
+    const response = await fetch(
+      `https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(searchTerm)}`
+    );
+    const data = await response.json();
+    return data.coins;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
 }
 
-function displayTokens(tokens) {
-  const resultsContainer = document.getElementById("results");
-
-  // Clear the existing content
-  resultsContainer.innerHTML = "";
-
+function displayResults(tokens) {
   if (tokens.length === 0) {
-    const noResultsMessage = document.createElement("p");
-    noResultsMessage.textContent = "No results found.";
-    resultsContainer.appendChild(noResultsMessage);
+    resultsContainer.innerHTML = `<p>No results found for "${searchTerm}".</p>`;
     return;
   }
 
-  tokens.forEach((token) => {
-    const tokenCard = createTokenCard(token);
-    resultsContainer.appendChild(tokenCard);
-  });
-}
+  const resultsHTML = tokens
+    .map(
+      (token) => `
+    <div class="result_text">
+      <h3>${token.name} (${token.symbol.toUpperCase()})</h3>
+      <p>Market Cap Rank: ${token.market_cap_rank || "N/A"}</p>
+      <p>Homepage: ${
+        token.homepage.length > 0 ? `<a href="${token.homepage[0]}">${token.homepage[0]}</a>` : "N/A"
+      }</p>
+    </div>
+  `
+    )
+    .join("");
 
-function createTokenCard(token) {
-  const tokenCard = document.createElement("div");
-  tokenCard.className = "tokenCard";
-
-  const tokenName = document.createElement("h3");
-  tokenName.textContent = token.name;
-  tokenCard.appendChild(tokenName);
-
-  const tokenSymbol = document.createElement("p");
-  tokenSymbol.textContent = `Symbol: ${token.symbol}`;
-  tokenCard.appendChild(tokenSymbol);
-
-  const tokenAddress = document.createElement("p");
-  tokenAddress.textContent = `Address: ${token.address}`;
-  tokenCard.appendChild(tokenAddress);
-
-  return tokenCard;
-}
-
-function displayNoSearchTermMessage() {
-  const resultsContainer = document.getElementById("results");
-  resultsContainer.innerHTML = "Please enter a search term in the search box.";
+  resultsContainer.innerHTML = resultsHTML;
 }
 
 async function initResultsPage() {
-  const searchTerm = localStorage.getItem("searchTerm");
   if (!searchTerm) {
     displayNoSearchTermMessage();
     return;
   }
 
   const tokens = await fetchTokens(searchTerm);
-  displayTokens(tokens);
+  displayResults(tokens);
+}
+
+function displayNoSearchTermMessage() {
+  resultsContainer.innerHTML = "No search term provided. Please go back and enter a search term.";
 }
 
 initResultsPage();
