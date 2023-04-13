@@ -6,32 +6,30 @@ async function fetchLatestTokens() {
   try {
     await sleep(5000); // Wait for 5 seconds before making a request
     const response = await fetch(
-  `${corsProxy}${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
-);
-
+      `${corsProxy}${apiUrl}?module=account&action=tokentx&address=0x0000000000000000000000000000000000001004&startblock=1&endblock=999999999&sort=desc&apikey=${apiKey}`
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json();
-	const responseText = await response.text();
-console.log("Raw response text:", responseText);
-const data = JSON.parse(responseText);
+    const responseText = await response.text();
+    console.log("Raw response text:", responseText);
+    const data = JSON.parse(responseText);
 
-	
-	// Log the entire response object
+    // Log the entire response object
     console.log("API response object:", response);
 
     // Log the response data
     console.log("API response data:", data);
-	
+
     return data.result;
   } catch (error) {
     console.error("Error fetching tokens:", error);
     return [];
   }
 }
+
 
 
 function sleep(ms) {
