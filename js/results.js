@@ -15,6 +15,10 @@ async function fetchLatestTokens() {
     }
 
     const data = await response.json();
+	const responseText = await response.text();
+console.log("Raw response text:", responseText);
+const data = JSON.parse(responseText);
+
 	
 	// Log the entire response object
     console.log("API response object:", response);
