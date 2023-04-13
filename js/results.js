@@ -2,7 +2,7 @@ const apiKey = "7G63N6FWRKWEIDCGK4GR1F7HK3SXXR3XW9";
 const apiUrl = "https://api.bscscan.com/api";
 
 async function fetchLatestTokens() {
-  const corsProxy = "https://cors.bridged.cc";
+  const corsProxy = "https://api.allorigins.win/raw?url";
   try {
     await sleep(5000); // Wait for 5 seconds before making a request
     const response = await fetch(
