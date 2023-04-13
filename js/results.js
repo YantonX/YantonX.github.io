@@ -14,7 +14,7 @@ async function fetchLatestTokens() {
     }
 
     const responseText = await response.text();
-    console.log("Raw response text:", responseText);
+    console.log("Raw response text length:", responseText.length);
     const data = JSON.parse(responseText);
 
     // Log the entire response object
@@ -23,14 +23,13 @@ async function fetchLatestTokens() {
     // Log the response data
     console.log("API response data:", data);
 
+
     return data.result;
   } catch (error) {
     console.error("Error fetching tokens:", error);
     return [];
   }
 }
-
-
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
